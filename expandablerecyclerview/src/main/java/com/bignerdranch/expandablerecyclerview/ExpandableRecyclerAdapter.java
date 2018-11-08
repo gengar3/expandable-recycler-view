@@ -2,10 +2,12 @@ package com.bignerdranch.expandablerecyclerview;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder.ParentViewHolderExpandCollapseListener;
@@ -30,7 +32,6 @@ import java.util.Map;
  * {@link #notifyChildRemoved(int, int)}
  * {@link #notifyChildChanged(int, int)}
  * methods and not the notify methods of RecyclerView.Adapter.
- *
  */
 public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH extends ParentViewHolder, CVH extends ChildViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -112,7 +113,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * methods and not the notify methods of RecyclerView.Adapter.
      *
      * @param parentList List of all parents to be displayed in the RecyclerView that this
-     *                       adapter is linked to
+     *                   adapter is linked to
      */
     public ExpandableRecyclerAdapter(@NonNull List<P> parentList) {
         super();
@@ -157,7 +158,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * {@link #onBindParentViewHolder(ParentViewHolder, int, Parent)} or
      * {@link #onBindChildViewHolder(ChildViewHolder, int, int, Object)}.
      *
-     * @param holder The RecyclerView.ViewHolder to bind data to
+     * @param holder       The RecyclerView.ViewHolder to bind data to
      * @param flatPosition The index in the merged list of children and parents at which to bind
      */
     @Override
@@ -218,8 +219,8 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Bind data to the {@link PVH} here.
      *
      * @param parentViewHolder The {@code PVH} to bind data to
-     * @param parentPosition The position of the parent to bind
-     * @param parent The parent which holds the data to be bound to the {@code PVH}
+     * @param parentPosition   The position of the parent to bind
+     * @param parent           The parent which holds the data to be bound to the {@code PVH}
      */
     @UiThread
     public abstract void onBindParentViewHolder(@NonNull PVH parentViewHolder, int parentPosition, @NonNull P parent);
@@ -231,9 +232,9 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Bind data to the {@link CVH} here.
      *
      * @param childViewHolder The {@code CVH} to bind data to
-     * @param parentPosition The position of the parent that contains the child to bind
-     * @param childPosition The position of the child to bind
-     * @param child The child which holds that data to be bound to the {@code CVH}
+     * @param parentPosition  The position of the parent that contains the child to bind
+     * @param childPosition   The position of the child to bind
+     * @param child           The child which holds that data to be bound to the {@code CVH}
      */
     @UiThread
     public abstract void onBindChildViewHolder(@NonNull CVH childViewHolder, int parentPosition, int childPosition, @NonNull C child);
@@ -281,7 +282,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      *
      * @param parentPosition The index of the parent to query
      * @return integer value identifying the type of the view needed to represent the parent at
-     *                 {@code parentPosition}. Type codes need not be contiguous.
+     * {@code parentPosition}. Type codes need not be contiguous.
      */
     public int getParentViewType(int parentPosition) {
         return TYPE_PARENT;
@@ -299,9 +300,9 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Start your defined viewtypes at {@link #TYPE_FIRST_USER}
      *
      * @param parentPosition The index of the parent continaing the child to query
-     * @param childPosition The index of the child within the parent to query
+     * @param childPosition  The index of the child within the parent to query
      * @return integer value identifying the type of the view needed to represent the child at
-     *                 {@code parentPosition}. Type codes need not be contiguous.
+     * {@code parentPosition}. Type codes need not be contiguous.
      */
     public int getChildViewType(int parentPosition, int childPosition) {
         return TYPE_CHILD;
@@ -331,7 +332,6 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * {@link #notifyChildChanged(int, int)}
      * methods.
      *
-     *
      * @return The list of parents that this adapter represents
      */
     @NonNull
@@ -351,6 +351,12 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Rely on {@code #setParentList(List, boolean)} as a last resort. There will be no animation
      * of changes, unlike the more specific change events listed below.
      *
+     * @param preserveExpansionState If true, the adapter will attempt to preserve your parent's last expanded
+     *                               state. This depends on object equality for comparisons of
+     *                               old parents to parents in the new list.
+     *                               <p>
+     *                               If false, only {@link Parent#isInitiallyExpanded()}
+     *                               will be used to determine expanded state.
      * @see #notifyParentInserted(int)
      * @see #notifyParentRemoved(int)
      * @see #notifyParentChanged(int)
@@ -358,14 +364,6 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * @see #notifyChildInserted(int, int)
      * @see #notifyChildRemoved(int, int)
      * @see #notifyChildChanged(int, int)
-     *
-     * @param preserveExpansionState If true, the adapter will attempt to preserve your parent's last expanded
-     *                               state. This depends on object equality for comparisons of
-     *                               old parents to parents in the new list.
-     *
-     *                               If false, only {@link Parent#isInitiallyExpanded()}
-     *                               will be used to determine expanded state.
-     *
      */
     @UiThread
     public void setParentList(@NonNull List<P> parentList, boolean preserveExpansionState) {
@@ -492,7 +490,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Expands all parents in a range of indices in the list of parents.
      *
      * @param startParentPosition The index at which to to start expanding parents
-     * @param parentCount The number of parents to expand
+     * @param parentCount         The number of parents to expand
      */
     @UiThread
     public void expandParentRange(int startParentPosition, int parentCount) {
@@ -542,7 +540,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Collapses all parents in a range of indices in the list of parents.
      *
      * @param startParentPosition The index at which to to start collapsing parents
-     * @param parentCount The number of parents to collapse
+     * @param parentCount         The number of parents to collapse
      */
     @UiThread
     public void collapseParentRange(int startParentPosition, int parentCount) {
@@ -686,8 +684,8 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * ExpandCollapseListener and adds children of the specified parent to the
      * flat list of items.
      *
-     * @param parentWrapper The ExpandableWrapper of the parent to expand
-     * @param flatParentPosition The index of the parent to expand
+     * @param parentWrapper                     The ExpandableWrapper of the parent to expand
+     * @param flatParentPosition                The index of the parent to expand
      * @param expansionTriggeredByListItemClick true if expansion was triggered
      *                                          by a click event, false otherwise.
      */
@@ -720,8 +718,8 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * ExpandCollapseListener and removes children of the specified parent from the
      * flat list of items.
      *
-     * @param parentWrapper The ExpandableWrapper of the parent to collapse
-     * @param flatParentPosition The index of the parent to collapse
+     * @param parentWrapper                    The ExpandableWrapper of the parent to collapse
+     * @param flatParentPosition               The index of the parent to collapse
      * @param collapseTriggeredByListItemClick true if expansion was triggered
      *                                         by a click event, false otherwise.
      */
@@ -809,6 +807,12 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Rely on {@code #notifyParentDataSetChanged(boolean)} as a last resort. There will be no animation
      * of changes, unlike the more specific change events listed below.
      *
+     * @param preserveExpansionState If true, the adapter will attempt to preserve your parent's last expanded
+     *                               state. This depends on object equality for comparisons of
+     *                               old parents to parents in the new list.
+     *                               <p>
+     *                               If false, only {@link Parent#isInitiallyExpanded()}
+     *                               will be used to determine expanded state.
      * @see #notifyParentInserted(int)
      * @see #notifyParentRemoved(int)
      * @see #notifyParentChanged(int)
@@ -816,14 +820,6 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * @see #notifyChildInserted(int, int)
      * @see #notifyChildRemoved(int, int)
      * @see #notifyChildChanged(int, int)
-     *
-     * @param preserveExpansionState If true, the adapter will attempt to preserve your parent's last expanded
-     *                               state. This depends on object equality for comparisons of
-     *                               old parents to parents in the new list.
-     *
-     *                               If false, only {@link Parent#isInitiallyExpanded()}
-     *                               will be used to determine expanded state.
-     *
      */
     @UiThread
     public void notifyParentDataSetChanged(boolean preserveExpansionState) {
@@ -846,7 +842,6 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      *
      * @param parentPosition Position of the newly inserted parent in the data set, relative
      *                       to the list of parents only.
-     *
      * @see #notifyParentRangeInserted(int, int)
      */
     @UiThread
@@ -876,8 +871,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      *
      * @param parentPositionStart Position of the first parent that was inserted, relative
      *                            to the list of parents only.
-     * @param itemCount Number of items inserted
-     *
+     * @param itemCount           Number of items inserted
      * @see #notifyParentInserted(int)
      */
     @UiThread
@@ -949,7 +943,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      *
      * @param parentPositionStart The previous position of the first parent that was
      *                            removed, relative to list of parents only.
-     * @param itemCount Number of parents removed from the data set
+     * @param itemCount           Number of parents removed from the data set
      */
     public void notifyParentRangeRemoved(int parentPositionStart, int itemCount) {
         int sizeChanged = 0;
@@ -1006,7 +1000,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * children must stay the same.
      *
      * @param parentPositionStart Position of the item that has changed
-     * @param itemCount Number of parents changed in the data set
+     * @param itemCount           Number of parents changed in the data set
      */
     @UiThread
     public void notifyParentRangeChanged(int parentPositionStart, int itemCount) {
@@ -1052,7 +1046,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      *
      * @param fromParentPosition Previous position of the parent, relative to the list of
      *                           parents only.
-     * @param toParentPosition New position of the parent, relative to the list of parents only.
+     * @param toParentPosition   New position of the parent, relative to the list of parents only.
      */
     @UiThread
     public void notifyParentMoved(int fromParentPosition, int toParentPosition) {
@@ -1120,9 +1114,8 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      *
      * @param parentPosition Position of the parent which has been added a child, relative
      *                       to the list of parents only.
-     * @param childPosition Position of the child that has been inserted, relative to children
-     *                      of the parent specified by {@code parentPosition} only.
-     *
+     * @param childPosition  Position of the child that has been inserted, relative to children
+     *                       of the parent specified by {@code parentPosition} only.
      */
     @UiThread
     public void notifyChildInserted(int parentPosition, int childPosition) {
@@ -1147,8 +1140,8 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * data set are still considered up to date and will not be rebound, though their
      * positions may be altered.
      *
-     * @param parentPosition Position of the parent which has been added a child, relative
-     *                       to the list of parents only.
+     * @param parentPosition     Position of the parent which has been added a child, relative
+     *                           to the list of parents only.
      * @param childPositionStart Position of the first child that has been inserted,
      *                           relative to children of the parent specified by
      *                           {@code parentPosition} only.
@@ -1182,8 +1175,8 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      *
      * @param parentPosition Position of the parent which has a child removed from, relative
      *                       to the list of parents only.
-     * @param childPosition Position of the child that has been removed, relative to children
-     *                      of the parent specified by {@code parentPosition} only.
+     * @param childPosition  Position of the child that has been removed, relative to children
+     *                       of the parent specified by {@code parentPosition} only.
      */
     @UiThread
     public void notifyChildRemoved(int parentPosition, int childPosition) {
@@ -1207,11 +1200,11 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * data set are still considered up to date and will not be rebound, though their positions
      * may be altered.
      *
-     * @param parentPosition Position of the parent which has a child removed from, relative
-     *                       to the list of parents only.
+     * @param parentPosition     Position of the parent which has a child removed from, relative
+     *                           to the list of parents only.
      * @param childPositionStart Position of the first child that has been removed, relative
      *                           to children of the parent specified by {@code parentPosition} only.
-     * @param itemCount number of children removed
+     * @param itemCount          number of children removed
      */
     @UiThread
     public void notifyChildRangeRemoved(int parentPosition, int childPositionStart, int itemCount) {
@@ -1236,7 +1229,7 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * The parent at {@code childPosition} retains the same identity.
      *
      * @param parentPosition Position of the parent which has a child that has changed
-     * @param childPosition Position of the child that has changed
+     * @param childPosition  Position of the child that has changed
      */
     @UiThread
     public void notifyChildChanged(int parentPosition, int childPosition) {
@@ -1261,9 +1254,9 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * reflection of the set of {@code itemCount} children starting at {@code childPositionStart}
      * are out of date and should be updated.
      *
-     * @param parentPosition Position of the parent who has a child that has changed
+     * @param parentPosition     Position of the parent who has a child that has changed
      * @param childPositionStart Position of the first child that has changed
-     * @param itemCount number of children changed
+     * @param itemCount          number of children changed
      */
     @UiThread
     public void notifyChildRangeChanged(int parentPosition, int childPositionStart, int itemCount) {
@@ -1290,9 +1283,9 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * data set are still considered up to date and will not be rebound, though their
      * positions may be altered.</p>
      *
-     * @param parentPosition Position of the parent which has a child that has moved
+     * @param parentPosition    Position of the parent which has a child that has moved
      * @param fromChildPosition Previous position of the child
-     * @param toChildPosition New position of the child
+     * @param toChildPosition   New position of the child
      */
     @UiThread
     public void notifyChildMoved(int parentPosition, int fromChildPosition, int toChildPosition) {
@@ -1333,8 +1326,8 @@ public abstract class ExpandableRecyclerAdapter<P extends Parent<C>, C, PVH exte
      * Generates a full list of all parents and their children, in order. Uses Map to preserve
      * last expanded state.
      *
-     * @param parentList A list of the parents from
-     *                   the {@link ExpandableRecyclerAdapter}
+     * @param parentList              A list of the parents from
+     *                                the {@link ExpandableRecyclerAdapter}
      * @param savedLastExpansionState A map of the last expanded state for a given parent key.
      * @return A list of all parents and their children, expanded accordingly
      */

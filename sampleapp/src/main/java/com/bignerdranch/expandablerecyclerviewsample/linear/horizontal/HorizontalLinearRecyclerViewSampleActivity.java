@@ -3,12 +3,14 @@ package com.bignerdranch.expandablerecyclerviewsample.linear.horizontal;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -604,7 +606,7 @@ public class HorizontalLinearRecyclerViewSampleActivity extends AppCompatActivit
 
     /**
      * Method to set up test data used in the RecyclerView.
-     *
+     * <p>
      * Each child list item contains a string.
      * Each parent list item contains a number corresponding to the number of the parent and a string
      * that contains a message.

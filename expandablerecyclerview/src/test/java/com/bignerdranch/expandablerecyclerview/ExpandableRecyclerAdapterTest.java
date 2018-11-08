@@ -1,7 +1,8 @@
 package com.bignerdranch.expandablerecyclerview;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView.AdapterDataObserver;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.model.ExpandableWrapper;
@@ -25,7 +26,7 @@ public class ExpandableRecyclerAdapterTest {
 
     private TestExpandableRecyclerAdapter mExpandableRecyclerAdapter;
     private List<Parent<Object>> mBaseParents;
-    private AdapterDataObserver mDataObserver;
+    private RecyclerView.AdapterDataObserver mDataObserver;
 
     @Before
     public void setup() throws NoSuchFieldException, IllegalAccessException {
@@ -37,7 +38,7 @@ public class ExpandableRecyclerAdapterTest {
         }
 
         mExpandableRecyclerAdapter = new TestExpandableRecyclerAdapter(mBaseParents);
-        mDataObserver = TestUtils.fixAdapterForTesting(mExpandableRecyclerAdapter);
+        //mDataObserver = TestUtils.fixAdapterForTesting(mExpandableRecyclerAdapter);
     }
 
     @Test

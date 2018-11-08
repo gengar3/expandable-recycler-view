@@ -1,7 +1,7 @@
 package com.bignerdranch.expandablerecyclerview;
 
 import android.database.Observable;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.widget.RecyclerView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

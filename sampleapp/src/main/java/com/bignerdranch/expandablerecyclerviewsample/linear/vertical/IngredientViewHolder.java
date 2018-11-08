@@ -1,6 +1,6 @@
 package com.bignerdranch.expandablerecyclerviewsample.linear.vertical;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
