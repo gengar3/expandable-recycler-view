@@ -1,14 +1,13 @@
-package com.bignerdranch.expandablerecyclerviewsample;
+package com.ryanbrooks.expandablerecyclerviewsample;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import com.bignerdranch.expandablerecyclerviewsample.linear.horizontal.HorizontalLinearRecyclerViewSampleActivity;
-import com.bignerdranch.expandablerecyclerviewsample.linear.vertical.VerticalLinearRecyclerViewSampleActivity;
+import com.ryanbrooks.expandablerecyclerviewsample.linear.horizontal.HorizontalLinearRecyclerViewSampleActivity;
+import com.ryanbrooks.expandablerecyclerviewsample.linear.vertical.VerticalLinearRecyclerViewSampleActivity;
 
 /**
  * Main Activity that contains navigation for sample application.
@@ -37,18 +36,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @NonNull
     private View.OnClickListener mVerticalSampleButtonClickListener = new View.OnClickListener() {
         @Override
-        public void onClick(@NonNull View v) {
+        public void onClick(View v) {
             startActivity(VerticalLinearRecyclerViewSampleActivity.newIntent(v.getContext()));
         }
     };
 
-    @NonNull
     private View.OnClickListener mHorizontalSampleButtonClickListener = new View.OnClickListener() {
         @Override
-        public void onClick(@NonNull View v) {
+        public void onClick(View v) {
             startActivity(HorizontalLinearRecyclerViewSampleActivity.newIntent(v.getContext()));
         }
     };

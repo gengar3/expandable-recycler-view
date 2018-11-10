@@ -1,18 +1,16 @@
-package com.bignerdranch.expandablerecyclerviewsample.linear.vertical;
+package com.ryanbrooks.expandablerecyclerviewsample.linear.vertical;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.widget.Toast;
 
-import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerviewsample.R;
+import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
+import com.ryanbrooks.expandablerecyclerviewsample.R;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +27,6 @@ public class VerticalLinearRecyclerViewSampleActivity extends AppCompatActivity{
 
     private RecipeAdapter mAdapter;
 
-    @NonNull
     public static Intent newIntent(Context context) {
         return new Intent(context, VerticalLinearRecyclerViewSampleActivity.class);
     }
@@ -39,12 +36,12 @@ public class VerticalLinearRecyclerViewSampleActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view_sample);
 
-        Ingredient beef = new Ingredient("beef", false);
-        Ingredient cheese = new Ingredient("cheese", true);
-        Ingredient salsa = new Ingredient("salsa", true);
-        Ingredient tortilla = new Ingredient("tortilla", true);
-        Ingredient ketchup = new Ingredient("ketchup", true);
-        Ingredient bun = new Ingredient("bun", true);
+        Ingredient beef = new Ingredient("beef");
+        Ingredient cheese = new Ingredient("cheese");
+        Ingredient salsa = new Ingredient("salsa");
+        Ingredient tortilla = new Ingredient("tortilla");
+        Ingredient ketchup = new Ingredient("ketchup");
+        Ingredient bun = new Ingredient("bun");
 
         Recipe taco = new Recipe("taco", Arrays.asList(beef, cheese, salsa, tortilla));
         Recipe quesadilla = new Recipe("quesadilla", Arrays.asList(cheese, tortilla));
@@ -54,10 +51,9 @@ public class VerticalLinearRecyclerViewSampleActivity extends AppCompatActivity{
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new RecipeAdapter(this, recipes);
         mAdapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
-            @UiThread
             @Override
-            public void onParentExpanded(int parentPosition) {
-                Recipe expandedRecipe = recipes.get(parentPosition);
+            public void onListItemExpanded(int position) {
+                Recipe expandedRecipe = recipes.get(position);
 
                 String toastMsg = getResources().getString(R.string.expanded, expandedRecipe.getName());
                 Toast.makeText(VerticalLinearRecyclerViewSampleActivity.this,
@@ -66,10 +62,9 @@ public class VerticalLinearRecyclerViewSampleActivity extends AppCompatActivity{
                         .show();
             }
 
-            @UiThread
             @Override
-            public void onParentCollapsed(int parentPosition) {
-                Recipe collapsedRecipe = recipes.get(parentPosition);
+            public void onListItemCollapsed(int position) {
+                Recipe collapsedRecipe = recipes.get(position);
 
                 String toastMsg = getResources().getString(R.string.collapsed, collapsedRecipe.getName());
                 Toast.makeText(VerticalLinearRecyclerViewSampleActivity.this,
