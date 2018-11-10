@@ -38,6 +38,7 @@ public class ExpandableRecyclerAdapterTest {
         }
 
         mExpandableRecyclerAdapter = new TestExpandableRecyclerAdapter(mBaseParents);
+
         //mDataObserver = TestUtils.fixAdapterForTesting(mExpandableRecyclerAdapter);
     }
 
