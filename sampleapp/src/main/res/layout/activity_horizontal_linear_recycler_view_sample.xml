@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_horizontal_linear_recycler_view_sample_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/list_item_horizontal_height"/>
